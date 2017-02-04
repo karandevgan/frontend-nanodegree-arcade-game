@@ -26,7 +26,7 @@ Enemy.prototype.update = function (dt) {
 
     // Updates the position of enemies`
     newX = enemy.x + enemy.speed * dt;
-    if (newX > 520)
+    if (newX > 820)
         newX = -100;
     enemy.x = newX;
 
@@ -57,11 +57,11 @@ var Player = function (x, y) {
 Player.prototype.update = function (dt) { }
 
 Player.prototype.handleInput = function (input) {
-    var topThreshold = 10;
-    var downThreshold = 430
+    var topThreshold = 5;
+    var downThreshold = 435;
     var leftThreshold = 10;
-    var rightThreshold = 400;
-    var delta = 20;
+    var rightThreshold = 700;
+    var delta = 25;
 
     if (input) {
         if (input === 'left') {
@@ -107,7 +107,7 @@ var Game = (function () {
     var _enemy1 = new Enemy(-100, 300, 150);
     var _enemy2 = new Enemy(-100, 150, 100);
     var _enemy3 = new Enemy(-200, 0, 200);
-    var _player = new Player(200, 430);
+    var _player = new Player(200, 435);
     var _initialScore = 0;
 
     // Binding private methods with gameObj to expose using object
@@ -122,25 +122,25 @@ var Game = (function () {
     };
 
     function _xTouches(enemyX, playerX) {
+
         var enemyLeft = enemyX - 20;
         var enemyRight = enemyX + 72;
 
         var playerLeft = playerX;
         var playerRight = playerX + 65;
 
-        return playerLeft < enemyRight && playerRight > enemyRight ||
-            playerRight > enemyLeft && playerLeft < enemyLeft;
+        return playerLeft <= enemyRight && playerRight >= enemyRight ||
+            playerRight >= enemyLeft && playerLeft <= enemyLeft;
     };
 
     function _yTouches(enemyY, playerY) {
         var enemyTop = enemyY;
-        var enemyBottom = enemyY + 80;
+        var enemyBottom = enemyY + 79;
 
         var playerTop = playerY;
         var playerBottom = playerY + 60;
-
-        return playerTop < enemyBottom && playerBottom > enemyBottom ||
-            playerTop < enemyTop && playerBottom > enemyTop;
+        return playerTop >= enemyTop && playerTop <= enemyBottom ||
+            playerBottom >= enemyTop && playerBottom <= enemyBottom;
     }
 
     return gameObj;
